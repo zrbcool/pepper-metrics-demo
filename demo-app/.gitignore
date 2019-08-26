@@ -1,0 +1,34 @@
+
+.idea/
+
+
+
+### TortoiseGit template
+# Project-level settings
+/.tgitconfig
+
+.flattened-pom.xml
+release.properties
+
+*/target/
+/src/main/webapp/static/
+/src/main/webapp/tmpfile/
+/src/main/webapp/index.jsp
+
+logs/
+.DS_Store
+/.DS_Store
+nap-admin/src/test/
+nap-api/src/test/
+
+/nap-admin/src/main/webapp/index.jsp
+*.versionsBackup
+
+target/
+app.log.*
+error.log.*
+framework.log.*
+performance.log.*
+trace.log.*
+
+*.iml
