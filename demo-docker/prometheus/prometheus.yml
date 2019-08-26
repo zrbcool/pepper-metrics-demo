@@ -13,8 +13,19 @@ rule_files:
   - "nginx.*.rule"
 
 scrape_configs:
-  - job_name: 'prometheus'
-    static_configs:
-    - targets: ['localhost:9090']
-    - targets: ['demo-client:9146']
-    - targets: ['demo-server:9146']
+#  - job_name: 'pepper_exporter_k8s'
+#    static_configs:
+#    - targets: ['client:9146']
+#    - targets: ['server:9146']
+
+  - job_name: 'pepper_exporter_k8s'
+    file_sd_configs:
+      - files:
+          - app.json
+    relabel_configs:
+    - source_labels: [__address__]
+      separator: ;
+      regex: (.*)
+      target_label: pod
+      replacement: $1
+      action: replace

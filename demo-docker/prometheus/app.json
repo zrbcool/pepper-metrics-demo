@@ -1,0 +1,20 @@
+[
+  {
+    "labels": {
+      "app": "client",
+      "appId": "client"
+    },
+    "targets": [
+      "client:9146"
+    ]
+  },
+  {
+    "labels": {
+      "app": "server",
+      "appId": "server"
+    },
+    "targets": [
+      "server:9146"
+    ]
+  }
+]

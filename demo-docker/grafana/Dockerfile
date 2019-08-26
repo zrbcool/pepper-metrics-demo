@@ -6,5 +6,5 @@ COPY datasource.yml /etc/grafana/provisioning/datasources/datasource.yml
 
 RUN mkdir /var/lib/grafana/dashboards
 
-COPY *.json /var/lib/grafana/dashboards/
+COPY ./dashboards/*.json /var/lib/grafana/dashboards/
 

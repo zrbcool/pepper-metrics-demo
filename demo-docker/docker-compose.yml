@@ -2,21 +2,27 @@ version: '3'
 services:
 
   prom:
-    image: "zrbcool/pepper-metrics-demo-prom:v1.0"
+    image: "zrbcool/pepper-metrics-demo-prom:latest"
     ports:
      - "9090:9090"
 
   grafana:
-    image: "zrbcool/pepper-metrics-demo-grafana:v1.0"
+    image: "zrbcool/pepper-metrics-demo-grafana:latest"
     ports:
      - "3000:3000"
 
   server:
     image: "zrbcool/pepper-metrics-demo-server:latest"
     ports:
-     - "8081:8081"
+      - "8080"
+      - "8002"
+      - "9146"
 
   client:
     image: "zrbcool/pepper-metrics-demo-client:latest"
-    ports:
-     - "8081:8081"
+    depends_on:
+      - "server"
+    expose:
+      - "8080"
+      - "8002"
+      - "9146"

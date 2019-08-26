@@ -14,71 +14,97 @@
   },
   "editable": true,
   "gnetId": null,
-  "graphTooltip": 0,
-  "id": 9,
-  "iteration": 1562396612058,
+  "graphTooltip": 1,
+  "id": 93,
+  "iteration": 1566815060138,
   "links": [
     {
       "asDropdown": true,
       "icon": "external link",
       "keepTime": true,
       "tags": [
-        "nginx"
+        "dashboard"
       ],
       "targetBlank": true,
-      "title": "# NGINX",
+      "title": "# Dashboard",
+      "type": "dashboards"
+    },
+    {
+      "asDropdown": true,
+      "icon": "dashboard",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "http"
+      ],
+      "targetBlank": true,
+      "title": "# HTTP",
+      "tooltip": "# Dashboard",
+      "type": "dashboards",
+      "url": "/d/yCm50nzZz/1-dashboard"
+    },
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "motan"
+      ],
+      "targetBlank": true,
+      "title": "# Motan",
+      "type": "dashboards"
+    },
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "internal"
+      ],
+      "targetBlank": true,
+      "title": "# Internal",
       "type": "dashboards"
     }
   ],
   "panels": [
     {
-      "collapsed": false,
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus-App",
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 1,
-        "w": 24,
+        "h": 5,
+        "w": 6,
         "x": 0,
         "y": 0
       },
-      "id": 126,
-      "panels": [],
-      "title": "Overall",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus-Aggregator",
-      "fill": 1,
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 0,
-        "y": 1
-      },
-      "id": 133,
+      "id": 4,
+      "interval": "30s",
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": false,
-        "hideEmpty": true,
-        "hideZero": true,
         "max": true,
         "min": false,
         "rightSide": true,
         "show": false,
-        "sideWidth": null,
-        "sort": "max",
+        "sort": "avg",
         "sortDesc": true,
         "total": false,
         "values": true
       },
-      "lines": false,
+      "lines": true,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -89,20 +115,18 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "job:nginx_http_request_duration_seconds_count:counter_1min_by_host_endpoint_fullurl_3XX{host=~\"$host\", endpoint=~\"$endpoint\"}",
+          "expr": "sum by(method) (rate(app_motan_request_in_summary_seconds_count{app=~\"$app\"}[3m]))",
           "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "3XX - 1min - {{fullurl}} ",
-          "refId": "D"
+          "intervalFactor": 1,
+          "legendFormat": "{{method}}",
+          "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "ERROR 3XX - 1min",
+      "title": "QPS By Method",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -119,311 +143,7 @@
       "yaxes": [
         {
           "decimals": 0,
-          "format": "none",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
           "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus-Aggregator",
-      "fill": 1,
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 8,
-        "y": 1
-      },
-      "id": 112,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {},
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Summary",
-          "transform": "negative-Y"
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "job:nginx_http_request_duration_seconds:qps_by_instance_host_endpoint_2XX{host=~\"$host\", endpoint=~\"$endpoint\"}",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "2XX QPS By Instance",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": 1
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus-Aggregator",
-      "fill": 1,
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 16,
-        "y": 1
-      },
-      "id": 129,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {},
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Summary",
-          "transform": "negative-Y"
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "job:nginx_http_request_duration_seconds:qps_by_host_endpoint_2XX{host=~\"$host\", endpoint=~\"$endpoint\"}",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "2XX",
-          "refId": "A"
-        },
-        {
-          "expr": "job:nginx_http_request_duration_seconds:qps_by_host_endpoint_4XX{host=~\"$host\", endpoint=~\"$endpoint\"}",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "4XX",
-          "refId": "B"
-        },
-        {
-          "expr": "job:nginx_http_request_duration_seconds:qps_by_host_endpoint_5XX{host=~\"$host\", endpoint=~\"$endpoint\"}",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "5XX",
-          "refId": "C"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "QPS",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": 1
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus-Aggregator",
-      "fill": 1,
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 0,
-        "y": 5
-      },
-      "id": 136,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": true,
-        "hideZero": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sideWidth": null,
-        "sort": "max",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {},
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "job:nginx_http_request_duration_seconds_count:counter_1min_by_host_endpoint_fullurl_4XX{host=~\"$host\", endpoint=~\"$endpoint\"}",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "4XX - 1min - {{fullurl}} ",
-          "refId": "D"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "ERROR 4XX - 1min",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 0,
-          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -449,61 +169,60 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus-Aggregator",
+      "datasource": "Prometheus-App",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 8,
-        "y": 5
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 0
       },
-      "id": 130,
+      "id": 115,
+      "interval": "30s",
       "legend": {
-        "alignAsTable": false,
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
-        "max": false,
+        "max": true,
         "min": false,
-        "rightSide": false,
+        "rightSide": true,
         "show": false,
-        "sort": "current",
-        "sortDesc": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Summary",
-          "transform": "negative-Y"
-        }
-      ],
+      "repeatDirection": "h",
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "job:nginx_http_request_duration_seconds:qps_by_instance_host_endpoint_4XX{host=~\"$host\", endpoint=~\"$endpoint\"}",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\",quantile=\"0.99\"}) by (method)",
           "format": "time_series",
           "hide": false,
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
-          "refId": "A"
+          "legendFormat": "{{method}}",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "4XX QPS By Instance",
+      "title": "MAX P99 By Method",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -519,123 +238,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": 1
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus-Aggregator",
-      "fill": 1,
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 16,
-        "y": 5
-      },
-      "id": 135,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "max",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {},
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "QPS",
-          "dashes": true,
-          "yaxis": 2
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "job:nginx_http_request_duration_seconds:p999_by_host_endpoint_2XX{host=~\"[[host]]\", endpoint=~\"$endpoint\"}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "2XX-P999",
-          "refId": "A"
-        },
-        {
-          "expr": "job:nginx_http_request_duration_seconds:p99_by_host_endpoint_2XX{host=~\"[[host]]\", endpoint=~\"$endpoint\"}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "2XX-P99",
-          "refId": "B"
-        },
-        {
-          "expr": "job:nginx_http_request_duration_seconds:p90_by_host_endpoint_2XX{host=~\"[[host]]\", endpoint=~\"$endpoint\"}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "2XX-P90",
-          "refId": "C"
-        },
-        {
-          "expr": "job:nginx_http_request_duration_seconds:avg_by_host_endpoint_2XX{host=~\"[[host]]\", endpoint=~\"$endpoint\"}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "2XX-AVG",
-          "refId": "D"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "2XX Latency",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
+          "decimals": 3,
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -659,18 +262,20 @@
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus-Aggregator",
+      "datasource": "Prometheus-App",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 0,
-        "y": 9
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 0
       },
-      "id": 137,
+      "id": 111,
+      "interval": "30s",
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -687,11 +292,13 @@
         "total": false,
         "values": true
       },
-      "lines": false,
+      "lines": true,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -702,20 +309,20 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "job:nginx_http_request_duration_seconds_count:counter_1min_by_host_endpoint_fullurl_5XX{host=~\"$host\", endpoint=~\"$endpoint\"}",
+          "expr": "sum (app_motan_request_in_concurrent_gauge{appId=~\"$app\"} offset 1m ) by (method)",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "intervalFactor": 2,
-          "legendFormat": "5XX - 1min - {{fullurl}} ",
-          "refId": "D"
+          "legendFormat": "{{method}}",
+          "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "ERROR 5XX - 1min",
+      "title": "并发 By Method",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -755,56 +362,58 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus-Aggregator",
+      "datasource": "Prometheus-App",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 8,
-        "y": 9
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 0
       },
-      "id": 131,
+      "id": 7,
+      "interval": "30s",
       "legend": {
-        "alignAsTable": false,
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
-        "max": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
         "min": false,
-        "rightSide": false,
+        "rightSide": true,
         "show": false,
-        "sort": "current",
+        "sideWidth": null,
+        "sort": "max",
         "sortDesc": true,
         "total": false,
-        "values": false
+        "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Summary",
-          "transform": "negative-Y"
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "job:nginx_http_request_duration_seconds:qps_by_instance_host_endpoint_5XX{host=~\"$host\", endpoint=~\"$endpoint\"}",
+          "expr": "sum(increase(app_motan_request_in_err_counter{app=~\"$app\"}[2m])) by (method)",
           "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{method}}",
           "refId": "A"
         }
       ],
@@ -812,7 +421,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "5XX QPS By Instance",
+      "title": "ERR By method - 2m",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -828,7 +437,8 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": null,
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -846,7 +456,7 @@
       ],
       "yaxis": {
         "align": false,
-        "alignLevel": 1
+        "alignLevel": null
       }
     },
     {
@@ -854,27 +464,26 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus-Aggregator",
+      "datasource": "Prometheus-App",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 16,
-        "y": 9
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 5
       },
-      "id": 128,
+      "id": 112,
+      "interval": "30s",
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": false,
-        "hideEmpty": true,
-        "hideZero": true,
         "max": true,
         "min": false,
         "rightSide": true,
         "show": false,
-        "sideWidth": null,
-        "sort": "max",
+        "sort": "avg",
         "sortDesc": true,
         "total": false,
         "values": true
@@ -883,7 +492,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -894,20 +505,18 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "job:nginx_http_request_duration_seconds_sum:err_rate_by_host_endpoint_fullurl{host=~\"$host\", endpoint=~\"$endpoint\"}",
+          "expr": "sum by(pod) (rate(app_motan_request_in_summary_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{fullurl}}",
-          "refId": "B"
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "ERROR Rate",
+      "title": "QPS By Instance",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -923,8 +532,8 @@
       },
       "yaxes": [
         {
-          "decimals": 3,
-          "format": "percent",
+          "decimals": 0,
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -946,36 +555,317 @@
       }
     },
     {
-      "collapsed": false,
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus-App",
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 13
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 5
       },
-      "id": 122,
-      "panels": [],
-      "title": "URL",
-      "type": "row"
+      "id": 116,
+      "interval": "30s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "h",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\",quantile=\"0.99\"}) by (pod)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MAX P99 By Instance",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 3,
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus-App",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 5
+      },
+      "id": 113,
+      "interval": "30s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sideWidth": null,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum (app_motan_request_in_concurrent_gauge{appId=~\"$app\"} offset 1m ) by (pod)",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{pod}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "并发 By Instance",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus-App",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 5
+      },
+      "id": 114,
+      "interval": "30s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sideWidth": null,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(increase(app_motan_requests_in_err_counter{appId=~\"$app\"}[2m])) by (pod)",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{pod}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "ERR By Instance - 2m",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "columns": [],
-      "datasource": "Prometheus-Aggregator",
+      "datasource": "Prometheus-App",
       "fontSize": "100%",
       "gridPos": {
-        "h": 10,
-        "w": 8,
+        "h": 9,
+        "w": 24,
         "x": 0,
-        "y": 14
+        "y": 10
       },
-      "id": 116,
+      "id": 118,
       "links": [],
       "options": {},
-      "pageSize": 10,
+      "pageSize": 8,
       "scroll": false,
       "showHeader": true,
       "sort": {
-        "col": 2,
+        "col": 3,
         "desc": true
       },
       "styles": [
@@ -986,7 +876,7 @@
           "type": "hidden"
         },
         {
-          "alias": "",
+          "alias": "Method",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -995,11 +885,14 @@
           ],
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "decimals": 2,
-          "link": false,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "点击进入详情",
+          "linkUrl": "/d/pxUGt3OWz/pepper-incoming-motan-drill?var-method=${__cell_1}&var-app=${app}",
           "mappingType": 1,
-          "pattern": "__name__",
+          "pattern": "method",
           "thresholds": [],
-          "type": "hidden",
+          "type": "number",
           "unit": "short"
         },
         {
@@ -1011,19 +904,34 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "link": true,
-          "linkTargetBlank": true,
-          "linkTooltip": "点击查看详情",
-          "linkUrl": "/d/utbSxXVZz/nginx-api-host-endpoint-url?var-host=$host&&var-endpoint=${endpoint}&&var-fullurl=${__cell_1}",
+          "decimals": 1,
           "mappingType": 1,
-          "pattern": "Value",
+          "pattern": "Value #A",
           "thresholds": [],
           "type": "number",
           "unit": "short"
         },
         {
-          "alias": "",
+          "alias": "错误率（10m）",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value #B",
+          "thresholds": [
+            "0.01",
+            "0.1"
+          ],
+          "type": "number",
+          "unit": "percent"
+        },
+        {
+          "alias": "P99",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1032,15 +940,43 @@
           ],
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "decimals": 2,
-          "link": true,
-          "linkTargetBlank": true,
-          "linkTooltip": "点击查看详情",
-          "linkUrl": "/d/utbSxXVZz/nginx-api-host-endpoint-url?var-host=$host&&var-endpoint=${endpoint}&&var-fullurl=${__cell_1}",
           "mappingType": 1,
-          "pattern": "fullurl",
+          "pattern": "Value #C",
           "thresholds": [],
           "type": "number",
-          "unit": "short"
+          "unit": "s"
+        },
+        {
+          "alias": "P999",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value #D",
+          "thresholds": [],
+          "type": "number",
+          "unit": "s"
+        },
+        {
+          "alias": "并发",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": -1,
+          "mappingType": 1,
+          "pattern": "Value #E",
+          "thresholds": [],
+          "type": "number",
+          "unit": "none"
         },
         {
           "alias": "",
@@ -1059,294 +995,96 @@
       ],
       "targets": [
         {
-          "expr": "topk(10, sum by(fullurl) (job:nginx_http_request_duration_seconds:qps_by_host_endpoint_fullurl_2XX{host=~\"$host\", endpoint=~\"$endpoint\"}))",
+          "expr": "sum by(method) (rate(app_motan_request_in_summary_seconds_count{app=\"$app\"}[3m]))",
           "format": "table",
-          "hide": false,
           "instant": true,
           "intervalFactor": 1,
+          "legendFormat": "QPS",
           "refId": "A"
-        }
-      ],
-      "title": "TOP 10 QPS",
-      "transform": "table",
-      "type": "table"
-    },
-    {
-      "columns": [],
-      "datasource": "Prometheus-Aggregator",
-      "fontSize": "100%",
-      "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 8,
-        "y": 14
-      },
-      "id": 123,
-      "links": [],
-      "options": {},
-      "pageSize": 10,
-      "scroll": false,
-      "showHeader": true,
-      "sort": {
-        "col": 2,
-        "desc": true
-      },
-      "styles": [
-        {
-          "alias": "Time",
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "pattern": "Time",
-          "type": "hidden"
         },
         {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "link": false,
-          "mappingType": 1,
-          "pattern": "__name__",
-          "thresholds": [],
-          "type": "hidden",
-          "unit": "short"
-        },
-        {
-          "alias": "4XX",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "link": true,
-          "linkTargetBlank": true,
-          "linkTooltip": "点击查看详情",
-          "linkUrl": "/d/utbSxXVZz/nginx-api-host-endpoint-url?var-host=$host&&var-endpoint=${endpoint}&&var-fullurl=${__cell_1}",
-          "mappingType": 1,
-          "pattern": "Value",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        },
-        {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "link": true,
-          "linkTargetBlank": true,
-          "linkTooltip": "点击查看详情",
-          "linkUrl": "/d/utbSxXVZz/nginx-api-host-endpoint-url?var-host=$host&&var-endpoint=${endpoint}&&var-fullurl=${__cell_1}",
-          "mappingType": 1,
-          "pattern": "fullurl",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        },
-        {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "decimals": 2,
-          "pattern": "/.*/",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        }
-      ],
-      "targets": [
-        {
-          "expr": "topk(10, sum(job:nginx_http_request_duration_seconds_count:counter_1min_by_host_endpoint_fullurl_4XX{host=~\"$host\", endpoint=~\"$endpoint\"}) by (fullurl)>0)",
+          "expr": "((\n  sum by(method) (increase(app_motan_request_in_err_counter{app=\"$app\"}[10m]))\n  / \n  (sum by(method) (increase(app_motan_request_in_summary_seconds_count{}[10m])) + 0.0001)\n  ) * 100)",
           "format": "table",
-          "hide": false,
           "instant": true,
           "intervalFactor": 1,
+          "legendFormat": "错误率",
           "refId": "B"
-        }
-      ],
-      "title": "TOP 10 4XX - 1min",
-      "transform": "table",
-      "type": "table"
-    },
-    {
-      "columns": [],
-      "datasource": "Prometheus-Aggregator",
-      "fontSize": "100%",
-      "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 16,
-        "y": 14
-      },
-      "id": 124,
-      "links": [],
-      "options": {},
-      "pageSize": 10,
-      "scroll": false,
-      "showHeader": true,
-      "sort": {
-        "col": 2,
-        "desc": true
-      },
-      "styles": [
-        {
-          "alias": "Time",
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "pattern": "Time",
-          "type": "hidden"
         },
         {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "link": false,
-          "mappingType": 1,
-          "pattern": "__name__",
-          "thresholds": [],
-          "type": "hidden",
-          "unit": "short"
-        },
-        {
-          "alias": "5XX",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "link": true,
-          "linkTargetBlank": true,
-          "linkTooltip": "点击查看详情",
-          "linkUrl": "/d/utbSxXVZz/nginx-api-host-endpoint-url?var-host=$host&&var-endpoint=${endpoint}&&var-fullurl=${__cell_1}",
-          "mappingType": 1,
-          "pattern": "Value",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        },
-        {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "link": true,
-          "linkTargetBlank": true,
-          "linkTooltip": "点击查看详情",
-          "linkUrl": "/d/utbSxXVZz/nginx-api-host-endpoint-url?var-host=$host&&var-endpoint=${endpoint}&&var-fullurl=${__cell_1}",
-          "mappingType": 1,
-          "pattern": "fullurl",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        },
-        {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "decimals": 2,
-          "pattern": "/.*/",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        }
-      ],
-      "targets": [
-        {
-          "expr": "topk(10, sum(job:nginx_http_request_duration_seconds_count:counter_1min_by_host_endpoint_fullurl_5XX{host=~\"$host\", endpoint=~\"$endpoint\"}) by (fullurl)>0)",
+          "expr": "sum by (method) (max_over_time(app_motan_request_in_summary_seconds{app=\"$app\", quantile=\"0.99\"}[10m]) )",
           "format": "table",
-          "hide": false,
           "instant": true,
           "intervalFactor": 1,
-          "refId": "B"
+          "legendFormat": "P99",
+          "refId": "C"
+        },
+        {
+          "expr": "sum by (method) (max_over_time(app_motan_request_in_summary_seconds{app=\"$app\", quantile=\"0.999\"}[10m]) )",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "legendFormat": "P999",
+          "refId": "D"
+        },
+        {
+          "expr": "sum (app_motan_request_in_concurrent_gauge{app=\"$app\"} offset 1m ) by (method)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "legendFormat": "并发",
+          "refId": "E"
         }
       ],
-      "title": "TOP 10 5XX - 1min",
+      "title": "请点击服务名进入详情",
       "transform": "table",
       "type": "table"
     }
   ],
   "refresh": false,
-  "schemaVersion": 18,
+  "schemaVersion": 19,
   "style": "dark",
   "tags": [
-    "nginx"
+    "motan",
+    "incoming",
+    "pepper"
   ],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
-          "text": "xwz.coohua.com",
-          "value": "xwz.coohua.com"
+          "text": "pepper_exporter_k8s",
+          "value": "pepper_exporter_k8s"
         },
-        "datasource": "Prometheus-Aggregator",
-        "definition": "label_values(job:nginx_http_request_duration_seconds:qps_by_instance_host_endpoint_2XX, host)",
-        "hide": 0,
-        "includeAll": false,
-        "label": "host",
-        "multi": false,
-        "name": "host",
-        "options": [],
-        "query": "label_values(job:nginx_http_request_duration_seconds:qps_by_instance_host_endpoint_2XX, host)",
-        "refresh": 2,
-        "regex": "",
+        "hide": 2,
+        "label": "jobname",
+        "name": "jobname",
+        "options": [
+          {
+            "selected": true,
+            "text": "pepper_exporter_k8s",
+            "value": "pepper_exporter_k8s"
+          }
+        ],
+        "query": "pepper_exporter_k8s",
         "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "constant"
       },
       {
         "allValue": null,
         "current": {
-          "text": "/ad",
-          "value": "/ad"
+          "text": "ad-common-impl",
+          "value": "ad-common-impl"
         },
-        "datasource": "Prometheus-Aggregator",
-        "definition": "label_values(job:nginx_http_request_duration_seconds:qps_by_instance_host_endpoint_2XX{host=~\"$host\"}, endpoint)",
+        "datasource": "Prometheus-App",
+        "definition": "label_values(up{job=\"$jobname\"}, appId)",
         "hide": 0,
         "includeAll": false,
-        "label": "endpoint",
+        "label": "app",
         "multi": false,
-        "name": "endpoint",
+        "name": "app",
         "options": [],
-        "query": "label_values(job:nginx_http_request_duration_seconds:qps_by_instance_host_endpoint_2XX{host=~\"$host\"}, endpoint)",
-        "refresh": 2,
+        "query": "label_values(up{job=\"$jobname\"}, appId)",
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -1359,7 +1097,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1388,7 +1126,7 @@
     ]
   },
   "timezone": "",
-  "title": "NGINX / API / Host / Endpoint",
-  "uid": "u8pccJ4Zk",
-  "version": 11
+  "title": "PEPPER / MOTAN / INCOMING",
+  "uid": "0QKfd3dZk",
+  "version": 13
 }

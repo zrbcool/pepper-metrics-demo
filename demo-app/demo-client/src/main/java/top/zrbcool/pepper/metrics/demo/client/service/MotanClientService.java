@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class MotanClientService {
     private static final Logger log = LoggerFactory.getLogger(MotanClientService.class);
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(5);
-    @MotanReferer(basicReferer = "motantestClientBasicConfig", group = "testgroup", directUrl = "127.0.0.1:8002")
+    @MotanReferer(basicReferer = "motantestClientBasicConfig", group = "testgroup", directUrl = "server:8002")
     private HelloService service;
 
     @PostConstruct

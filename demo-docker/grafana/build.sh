@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-docker build -t zrbcool/prometheus-lua-grafana:latest -f Dockerfile .
+#rm -rf pepper-metrics
+#git clone https://github.com/zrbcool/pepper-metrics.git
+COMPONENT="pepper-metrics-demo-grafana"
+sudo docker build -t zrbcool/${COMPONENT}:latest -f Dockerfile .
