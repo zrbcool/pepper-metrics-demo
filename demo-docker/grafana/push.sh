@@ -1,4 +1,7 @@
-docker push zrbcool/prometheus-lua-grafana:latest
+#!/usr/bin/env bash
+
+COMPONENT="pepper-metrics-demo-grafana"
 VERSION=$1
-docker tag zrbcool/prometheus-lua-grafana:latest zrbcool/prometheus-lua-grafana:$VERSION
-docker push zrbcool/prometheus-lua-grafana:$VERSION
+sudo docker push zrbcool/${COMPONENT}:latest
+sudo docker tag zrbcool/${COMPONENT}:latest zrbcool/${COMPONENT}:${VERSION}
+sudo docker push zrbcool/${COMPONENT}:${VERSION}

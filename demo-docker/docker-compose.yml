@@ -2,16 +2,19 @@ version: '3'
 services:
 
   prom:
+    container_name: "pepper-metrics-demo-prom"
     image: "zrbcool/pepper-metrics-demo-prom:latest"
     ports:
      - "9090:9090"
 
   grafana:
+    container_name: "pepper-metrics-demo-grafana"
     image: "zrbcool/pepper-metrics-demo-grafana:latest"
     ports:
      - "3000:3000"
 
   server:
+    container_name: "pepper-metrics-demo-server"
     image: "zrbcool/pepper-metrics-demo-server:latest"
     ports:
       - "8080"
@@ -19,6 +22,7 @@ services:
       - "9146"
 
   client:
+    container_name: "pepper-metrics-demo-client"
     image: "zrbcool/pepper-metrics-demo-client:latest"
     depends_on:
       - "server"
