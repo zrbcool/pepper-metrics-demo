@@ -69,6 +69,8 @@ http://localhost:9090
 - 访问server的监控数据
     - metrics
     ```bash
+    ➜  ~ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' pepper-metrics-demo-server               
+    172.20.0.2
     ➜  ~ curl 172.20.0.2:9146/metrics
     # HELP app_motan_request_in_summary_seconds  
     # TYPE app_motan_request_in_summary_seconds summary

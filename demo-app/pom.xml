@@ -16,6 +16,7 @@
         <spring.boot.version>2.1.7.RELEASE</spring.boot.version>
         <pepper.metrics.demo.version>1.0.0-SNAPSHOT</pepper.metrics.demo.version>
         <com.weibo.motan>1.1.5</com.weibo.motan>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
@@ -117,4 +118,19 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
