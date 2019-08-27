@@ -18,6 +18,7 @@ https://docs.docker.com/install/linux/docker-ce/ubuntu/
 https://docs.docker.com/compose/install/
 ### run this demo
 ```bash
+cd demo-docker
 docker-compose up
 ```
 ### play demo
