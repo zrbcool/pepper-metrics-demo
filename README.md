@@ -20,6 +20,8 @@ https://docs.docker.com/compose/install/
 ```bash
 cd demo-docker
 docker-compose up
+# 如果发现client启动有错误，另启动一个terminal执行
+docker restart pepper-metrics-demo-client
 ```
 ### play demo
 - 访问grafana  
