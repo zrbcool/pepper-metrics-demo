@@ -41,9 +41,10 @@ public class MotanConfig {
         config.setApplication("myMotanDemo");
         config.setRegistry("registryConfig1");
         config.setCheck(false);
-        config.setAccessLog(true);
+        config.setAccessLog(false);
         config.setRetries(2);
         config.setThrowException(true);
+        config.setCheck(true);
         return config;
     }
 }

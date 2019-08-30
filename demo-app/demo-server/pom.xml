@@ -23,6 +23,11 @@
         </dependency>
         <dependency>
             <groupId>top.zrbcool</groupId>
+            <artifactId>pepper-metrics-jedis</artifactId>
+            <version>${pepper.metrics.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-ds-prometheus</artifactId>
             <version>${pepper.metrics.version}</version>
         </dependency>
@@ -64,6 +69,10 @@
             <groupId>com.weibo</groupId>
             <artifactId>motan-springsupport</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.weibo</groupId>
+            <artifactId>motan-registry-zookeeper</artifactId>
+        </dependency>
         <!-- mybatis spring boot dependencies -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -74,6 +83,12 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <!-- jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
         </dependency>
     </dependencies>
     <build>
