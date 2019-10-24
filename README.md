@@ -1,5 +1,7 @@
 # pepper-metrics-demo
 该demo主要用于展示pepper-metrics-x的各项监控能力，意在通过docker-compose的快速部署能力，让使用者能够在10分钟内快速的启动一套完整的demo，并能够直观的看到效果。
+## pepper metrics项目地址
+https://github.com/zrbcool/pepper-metrics
 
 ## play with docker
 ### install docker
